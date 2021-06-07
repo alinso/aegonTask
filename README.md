@@ -1,11 +1,11 @@
 # Aegon Customer Satisfaction Survey
 
 
-##Technologies Used
+## Technologies Used
 I have used Spring Boot, JPA and Mysql as fundamental technologies in this demo. It is restful web service application. 
 
 
-##Layers
+## Layers
 
 I have standard Entity-Repository-Service-Controller layering in this project. I also have validators and DTOs. 
 I always use DTOs because the Object model in the database, and the object model to show the user generally 
