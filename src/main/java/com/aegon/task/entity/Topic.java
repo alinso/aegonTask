@@ -17,9 +17,6 @@ public class Topic extends BaseEntity {
     @Column
     private String topicName;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Feedback> feedbackList;
-
     @Column
     private double NPMScore;
 
@@ -58,7 +55,4 @@ public class Topic extends BaseEntity {
         this.IPAddress = IPAddress;
     }
 
-    public List<Feedback> getFeedbackList() {
-        return feedbackList;
-    }
 }

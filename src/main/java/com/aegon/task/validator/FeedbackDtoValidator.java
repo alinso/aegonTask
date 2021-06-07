@@ -22,7 +22,7 @@ public class FeedbackDtoValidator implements Validator {
         if (feedbackDto.getVote() > 10 || feedbackDto.getVote() < 0) {
             errors.rejectValue("vote", "Match", "Vote value should be in [0-10]");
         }
-        if (feedbackDto.getId() < 1) {
+        if (feedbackDto.getSelectedTopicId() < 1) {
             errors.rejectValue("id", "Match", "You have to select a topic!");
         }
     }

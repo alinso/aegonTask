@@ -8,5 +8,4 @@ public class VoteOutOfBoundException extends RuntimeException {
     public VoteOutOfBoundException() {
         super("Value of the vote is out its bouds (1-10) ");
     }
-
 }

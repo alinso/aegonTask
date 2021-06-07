@@ -19,6 +19,10 @@ public class Feedback extends BaseEntity {
     @Size
     private String answer;
 
+
+    //I have only defined the relationship here, whenever I need to reach the List<Feedback> of a topic, I am getting the list by Feedback repository.
+    //It has 2 advantages, 1- it promotes the lazy loading(I only query list of feedbacks of a a topic when I need), 2-I am not creating another topic_feedback_list table
+    // (if I have defined the relationship at the topic-entity side it has to be one-to-many and it has to have another table called topic_feedback_list)
     @ManyToOne
     private Topic topic;
 

@@ -44,6 +44,12 @@ public class TopicController {
         return new ResponseEntity<>(topicDtoList, HttpStatus.OK);
     }
 
+//    @GetMapping( "allWithFeedBacks")
+//    public ResponseEntity<?> allWithFeedBacks() {
+//        List<TopicDto> topicDtoList =  topicService.findAllWithFeedBacks();
+//        return new ResponseEntity<>(topicDtoList, HttpStatus.OK);
+//    }
+
 
 
 

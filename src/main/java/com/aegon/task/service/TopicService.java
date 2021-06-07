@@ -4,43 +4,58 @@ import com.aegon.task.entity.Feedback;
 import com.aegon.task.entity.Topic;
 import com.aegon.task.entity.dto.TopicDto;
 import com.aegon.task.exception.VoteOutOfBoundException;
+import com.aegon.task.repository.FeedbackRepository;
 import com.aegon.task.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TopicService extends BaseService {
 
-    final TopicRepository repository;
+    final TopicRepository topicRepository;
+    final FeedbackRepository feedbackRepository;
 
     @Autowired
-    public TopicService(TopicRepository repository) {
-        this.repository = repository;
+    public TopicService(TopicRepository topicRepository, FeedbackRepository feedbackRepository) {
+        this.topicRepository = topicRepository;
+        this.feedbackRepository = feedbackRepository;
     }
 
     public Topic save(TopicDto topicDto) {
         Topic topic = modelMapper.map(topicDto, Topic.class);
-        return repository.save(topic);
+        return topicRepository.save(topic);
+    }
+
+    public List<Feedback> getFeedbacksByTopic(Topic tpc){
+        return feedbackRepository.feedbackListByTopic(tpc);
     }
 
     public List<TopicDto> findAll() {
-        List<Topic> topicList = repository.findAll();
+        List<Topic> topicList = topicRepository.findAll();
         return toDtoList(topicList);
     }
 
 
-    public List<Feedback> getFeedBacks(Topic topic) {
-        return topic.getFeedbackList();
+    public List<TopicDto> toDtoList(List<Topic> topicList){
+
+        List<TopicDto> topicDtoList = new ArrayList<>();
+        topicList.forEach(topic -> {
+            TopicDto topicDto = modelMapper.map(topic, TopicDto.class);
+            topicDtoList.add(topicDto);
+        });
+
+        return topicDtoList;
     }
 
-    public double calculateNPMScore(Topic topic) {
+    private double calculateNPMScore(Topic topic, List<Feedback> feedbackList) {
+
         AtomicInteger detractorCount = new AtomicInteger();
         AtomicInteger promoterCount = new AtomicInteger();
 
-        List<Feedback> feedbackList = getFeedBacks(topic);
         feedbackList.forEach(feedback -> {
             if (feedback.getVote() < 7 && feedback.getVote() > -1) {
                 detractorCount.getAndIncrement();
@@ -58,11 +73,17 @@ public class TopicService extends BaseService {
         return NPMScore;
     }
 
-    public void updateNPMScore(Topic topic) {
-        topic.setNPMScore(calculateNPMScore(topic));
+    public void updateNPMScore(Topic topic,List<Feedback> feedbackList) {
+        topic.setNPMScore(calculateNPMScore(topic,feedbackList));
+        topicRepository.save(topic);
     }
 
 
+    public Topic findEntityById(long selectedTopicId) {
+        Topic topic= topicRepository.findById(selectedTopicId).get();
+        return topic;
+
+    }
 }
 
 

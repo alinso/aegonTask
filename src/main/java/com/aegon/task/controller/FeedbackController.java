@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("feedback")
@@ -22,22 +19,26 @@ public class FeedbackController {
     final FeedbackDtoValidator feedbackDtoValidator;
 
     @Autowired
-    public FeedbackController(MapValidationErrorUtil mapValidationErrorUtil, FeedBackService feedBackService, FeedbackDtoValidator feedbackDtoValidator){
-        this.feedBackService =  feedBackService;
-        this.mapValidationErrorUtil=mapValidationErrorUtil;
+    public FeedbackController(MapValidationErrorUtil mapValidationErrorUtil, FeedBackService feedBackService, FeedbackDtoValidator feedbackDtoValidator) {
+        this.feedBackService = feedBackService;
+        this.mapValidationErrorUtil = mapValidationErrorUtil;
         this.feedbackDtoValidator = feedbackDtoValidator;
     }
 
 
-    @PostMapping( "save")
+    @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody FeedbackDto dto, BindingResult bindingResult) {
 
-        feedbackDtoValidator.validate(dto,bindingResult);
+        feedbackDtoValidator.validate(dto, bindingResult);
         ResponseEntity<?> errorMap = mapValidationErrorUtil.MapValidationService(bindingResult);
         if (errorMap != null) return errorMap;
 
         return new ResponseEntity<>(feedBackService.save(dto), HttpStatus.CREATED);
     }
 
+    @GetMapping("findByTopicId/{topicId}")
+    public ResponseEntity<?> save(@PathVariable("topicId") Long topicId) {
+        return new ResponseEntity<>(feedBackService.findByTopicId(topicId), HttpStatus.CREATED);
 
+    }
 }

@@ -1,13 +1,13 @@
 package com.aegon.task.entity.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class FeedbackDto {
 
     private long id;
+
+    private long selectedTopicId;
 
     @NotEmpty(message = "answer cannot be empty")
     private String answer;
@@ -38,4 +38,13 @@ public class FeedbackDto {
     public void setVote(int vote) {
         this.vote = vote;
     }
+
+    public long getSelectedTopicId() {
+        return selectedTopicId;
+    }
+
+    public void setSelectedTopicId(long selectedTopicId) {
+        this.selectedTopicId = selectedTopicId;
+    }
+
 }

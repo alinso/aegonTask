@@ -1,6 +1,7 @@
 package com.aegon.task.entity.dto;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 
 public class TopicDto {
@@ -13,7 +14,17 @@ public class TopicDto {
     @NotBlank(message = "Name cant be blank")
     private String question;
 
-    private double NPMScore;
+    List<FeedbackDto> feedbackDtoList;
+
+    private Integer NPMScore;
+
+    public List<FeedbackDto> getFeedbackDtoList() {
+        return feedbackDtoList;
+    }
+
+    public void setFeedbackDtoList(List<FeedbackDto> feedbackDtoList) {
+        this.feedbackDtoList = feedbackDtoList;
+    }
 
     public long getId() {
         return id;
@@ -31,11 +42,11 @@ public class TopicDto {
         this.question = question;
     }
 
-    public double getNPMScore() {
+    public Integer getNPMScore() {
         return NPMScore;
     }
 
-    public void setNPMScore(double NPMScore) {
+    public void setNPMScore(Integer NPMScore) {
         this.NPMScore = NPMScore;
     }
 
