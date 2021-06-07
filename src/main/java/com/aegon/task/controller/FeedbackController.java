@@ -37,7 +37,7 @@ public class FeedbackController {
     }
 
     @GetMapping("findByTopicId/{topicId}")
-    public ResponseEntity<?> save(@PathVariable("topicId") Long topicId) {
+    public ResponseEntity<?> findByTopicId(@PathVariable("topicId") Long topicId) {
         return new ResponseEntity<>(feedBackService.findByTopicId(topicId), HttpStatus.CREATED);
 
     }

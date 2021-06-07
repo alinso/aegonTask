@@ -11,6 +11,18 @@ import java.util.List;
 @Entity
 public class Topic extends BaseEntity {
 
+
+    public Topic() {
+
+    }
+
+    public Topic(String question, String topicName, double NPMScore,Long id) {
+        this.question = question;
+        this.topicName = topicName;
+        this.NPMScore = NPMScore;
+        this.setId(id);
+    }
+
     @Column
     private String question;
 
@@ -20,8 +32,6 @@ public class Topic extends BaseEntity {
     @Column
     private double NPMScore;
 
-    @Column
-    private String IPAddress;
 
     public String getQuestion() {
         return question;
@@ -45,14 +55,6 @@ public class Topic extends BaseEntity {
 
     public void setNPMScore(double NPMScore) {
         this.NPMScore = NPMScore;
-    }
-
-    public String getIPAddress() {
-        return IPAddress;
-    }
-
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
     }
 
 }

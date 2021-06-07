@@ -1,5 +1,7 @@
 package com.aegon.task.entity;
 
+import com.aegon.task.service.TopicService;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,16 @@ public class Feedback extends BaseEntity {
     @Column
     @Size
     private String answer;
+
+    public Feedback(){
+
+    }
+
+    //used for testing
+    public Feedback(String answer, int vote){
+        this.answer = answer;
+        this.vote = vote;
+    }
 
 
     //I have only defined the relationship here, whenever I need to reach the List<Feedback> of a topic, I am getting the list by Feedback repository.

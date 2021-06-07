@@ -51,7 +51,7 @@ public class TopicService extends BaseService {
         return topicDtoList;
     }
 
-    private double calculateNPMScore(Topic topic, List<Feedback> feedbackList) {
+    public double calculateNPMScore( List<Feedback> feedbackList) {
 
         AtomicInteger detractorCount = new AtomicInteger();
         AtomicInteger promoterCount = new AtomicInteger();
@@ -74,7 +74,7 @@ public class TopicService extends BaseService {
     }
 
     public void updateNPMScore(Topic topic,List<Feedback> feedbackList) {
-        topic.setNPMScore(calculateNPMScore(topic,feedbackList));
+        topic.setNPMScore(calculateNPMScore(feedbackList));
         topicRepository.save(topic);
     }
 
